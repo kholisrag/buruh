@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"terminal.integrated.env.linux": {
+			"PATH": "$(pwd)/node_modules/.bin:$PATH"
+		},
+		"terminal.integrated.env.osx": {
+			"PATH": "$(pwd)/node_modules/.bin:$PATH"
+		}
+	},
+	"extensions": {
+		"recommendations": [
+			"golang.go",
+			"oderwat.indent-rainbow",
+			"christian-kohler.path-intellisense",
+			"shardulm94.trailing-spaces",
+			"redhat.vscode-yaml",
+			"nhoizey.gremlins",
+			"vivaxy.vscode-conventional-commits",
+			"joshbolduc.commitlint",
+			"esbenp.prettier-vscode"
+		]
+	}
+}

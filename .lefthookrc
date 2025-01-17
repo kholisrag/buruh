@@ -1,0 +1,6 @@
+# go
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
+
+# node
+export PATH="$(pwd)/node_modules/.bin:$PATH"

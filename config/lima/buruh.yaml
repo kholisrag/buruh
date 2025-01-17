@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=./lima-config-schema.json
+vmType: qemu
+arch: "x86_64"
+images:
+  - location: "https://cloud-images.ubuntu.com/releases/24.04/release-20250115/ubuntu-24.04-server-cloudimg-amd64.img"
+    arch: "x86_64"
+    digest: "sha256:28d2f9df3ac0d24440eaf6998507df3405142cf94a55e1f90802c78e43d2d9df"
+
+cpus: 4
+memory: 8GiB
+disk: 100GiB
+
+mounts:
+  - location: "~"
+  - location: "/tmp/lima"
+    writable: true
+
+ssh:
+  localPort: 60022
+  loadDotSSHPubKeys: true
+
+containerd:
+  system: false
+  user: false
+
+minimumLimaVersion: "1.0.0"
+
+user:
+  name: buruh
+  comment: "buruh - labz-shell platform worker agent"
+  uid: 2100
+  home: "/home/buruh.agent"
+
+vmOpts:
+  qemu:
+    minimumVersion: "9.2.0"
+
+os: "Linux"
+
+cpuType:
+  x86_64: max

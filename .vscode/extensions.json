@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "golang.go",
+    "oderwat.indent-rainbow",
+    "christian-kohler.path-intellisense",
+    "shardulm94.trailing-spaces",
+    "redhat.vscode-yaml",
+    "nhoizey.gremlins",
+    "vivaxy.vscode-conventional-commits",
+    "joshbolduc.commitlint",
+    "esbenp.prettier-vscode"
+  ]
+}

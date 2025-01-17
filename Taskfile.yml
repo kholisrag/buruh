@@ -1,0 +1,73 @@
+version: "3"
+
+tasks:
+  # task: install required tools for development
+  tools-install:
+    run: once
+    requires:
+      vars:
+        - GOPATH
+        - PATH
+    cmds:
+      - cmd: |
+          {{.TASKFILE_DIR}}/scripts/init/tools-install.sh
+      - cmd: |
+          bun install
+  # task: init git hooks for consistency using lefthook
+  lefthook:
+    cmds:
+      - lefthook install --force
+      - lefthook run pre-commit
+      - lefthook run commit-msg
+  build:
+    cmds:
+      - goreleaser release --snapshot --clean
+  # task: run pre-requisite tasks before running buruh locally for development
+  init:
+    deps:
+      - tools-install
+      - lefthook
+  # task: add license to files
+  addlicense:
+    vars:
+      COPYRIGHT_HOLDER: "Kholis RA Gumelar or its affiliates. All Rights Reserved."
+      LICENSE_TYPE: "AGPL-3.0-only"
+      YEAR: "2025"
+    cmds:
+      - addlicense -s -ignore "**/*.{yaml,yml,md,json}" -ignore ".*.{yaml,yml}" -ignore ".**/*.{yaml,yml}" -c "{{.COPYRIGHT_HOLDER}}" -l "{{.LICENSE_TYPE}}" -y "{{.YEAR}}" .
+  # task: running buruh inside linux vm with specified config file using lima
+  lima:
+    vars:
+      CONFIG_FILE: config/lima/buruh.yaml
+      CHECKSUM_FILE: .task/lima.checksum
+      CURR_CHECKSUM:
+        sh: |
+          sha256sum {{.CONFIG_FILE}} | cut -d ' ' -f 1
+      PREV_CHECKSUM:
+        sh: |
+          if [ -f {{.CHECKSUM_FILE}} ]; then
+            cat {{.CHECKSUM_FILE}}
+          else
+            echo "none"
+          fi
+    status:
+      # compare checksum
+      - |
+        [ "{{.PREV_CHECKSUM}}" = "{{.CURR_CHECKSUM}}" ]
+    preconditions:
+      # validate lima config file
+      - sh: |
+          limactl validate {{.TASKFILE_DIR }}/{{.CONFIG_FILE}} --tty=false
+    cmds:
+      # stop and delete existing buruh vm when precondition is met and status returns non-zero
+      - cmd: |
+          limactl stop buruh || true
+          limactl delete buruh
+          limactl create --name=buruh {{.TASKFILE_DIR }}/{{.CONFIG_FILE}} --tty=false
+          limactl start buruh
+      # save checksum after limactl task above is done
+      - cmd: mkdir -p .task && echo "{{.CURR_CHECKSUM}}" > {{.CHECKSUM_FILE}}
+  # task: lint
+  lint:
+    cmds:
+      - golangci-lint run --fix

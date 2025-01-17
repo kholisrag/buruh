@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/evilmartians/lefthook/refs/heads/master/schema.json
+rc: .lefthookrc
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: run linting with `golangci-lint`
+      glob: "*.go"
+      run: golangci-lint run --fix
+      stage_fixed: true
+
+    - name: check and add license header with `addlicense`
+      glob: "*.go"
+      run: task addlicense
+      stage_fixed: true
+
+    - name: check secrets with `gitleaks`
+      run: gitleaks git --pre-commit --staged --redact
+
+    - name: check broken links with `lychee`
+      run: lychee {staged_files}
+
+    - name: check typos with `typos`
+      run: typos --write-changes {staged_files}
+      stage_fixed: true
+
+commit-msg:
+  parallel: true
+  jobs:
+    - name: check commit message with `commitlint`
+      run: commitlint --from HEAD~1 --to HEAD
