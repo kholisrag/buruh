@@ -200,3 +200,4 @@ dist/
 # buruh
 .buruh.yaml
 temp/
+.bin/

@@ -5,6 +5,11 @@
 		}
 	],
 	"settings": {
+		"search.exclude": {
+			"**/node_modules/**": true,
+			"**/.bin/**": true,
+		},
+		"files.trimTrailingWhitespace": true,
 		"terminal.integrated.env.linux": {
 			"PATH": "$(pwd)/node_modules/.bin:$PATH"
 		},
