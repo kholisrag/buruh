@@ -10,8 +10,10 @@ pre-commit:
       stage_fixed: true
 
     - name: check and add license header with `addlicense`
-      glob: "*.go"
-      run: task addlicense
+      files: git ls-files
+      run: |
+        task addlicense
+        git add .
       stage_fixed: true
 
     - name: check secrets with `gitleaks`

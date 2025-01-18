@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright 2025 Kholis RA Gumelar or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: AGPL-3.0-only
+
 
 set -euo pipefail
 

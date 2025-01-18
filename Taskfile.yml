@@ -36,7 +36,16 @@ tasks:
       LICENSE_TYPE: "AGPL-3.0-only"
       YEAR: "2025"
     cmds:
-      - addlicense -s -ignore "**/*.{yaml,yml,md,json}" -ignore ".*.{yaml,yml}" -ignore ".**/*.{yaml,yml}" -c "{{.COPYRIGHT_HOLDER}}" -l "{{.LICENSE_TYPE}}" -y "{{.YEAR}}" .
+      - cmd: |
+          addlicense \
+            -s \
+            -ignore "**/*.{yaml,yml,md,json,toml}" \
+            -ignore ".*.{yaml,yml,toml}" \
+            -ignore ".**/*.{yaml,yml,toml}" \
+            -c "{{.COPYRIGHT_HOLDER}}" \
+            -l "{{.LICENSE_TYPE}}" \
+            -y "{{.YEAR}}" \
+            .
   # task: running buruh inside linux vm with specified config file using lima
   lima:
     vars:
