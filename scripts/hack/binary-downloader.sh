@@ -19,7 +19,7 @@ HAMMERTIME_VERSION="v0.0.11"
 TTYD_VERSION="1.7.7"
 
 # Default installation directory
-INSTALL_DIR="${REPO_ROOT}/.bin"
+INSTALL_DIR="${REPO_ROOT}/pkg/utils/.bin"
 TEMP_DIR="${REPO_ROOT}/temp/download"
 ARCH=$(uname -m)
 

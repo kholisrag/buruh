@@ -16,14 +16,13 @@ before:
     - go generate ./...
 
 builds:
-  - id: "binary-buruh"
+  - id: "buruh"
     main: cmd/buruh/main.go
     binary: buruh
     env:
       - CGO_ENABLED=0
     goos:
       - linux
-      - darwin
     goarch:
       - amd64
       - arm64

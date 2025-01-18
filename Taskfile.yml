@@ -20,6 +20,8 @@ tasks:
       - lefthook run pre-commit
       - lefthook run commit-msg
   build:
+    deps:
+      - binary-download
     cmds:
       - goreleaser release --snapshot --clean
   # task: run pre-requisite tasks before running buruh locally for development
@@ -71,3 +73,15 @@ tasks:
   lint:
     cmds:
       - golangci-lint run --fix
+  # task: binary download
+  binary-download:
+    cmds:
+      - cmd: |
+          {{.TASKFILE_DIR}}/scripts/hack/binary-downloader.sh
+  # task: generate gitingest
+  gitingest:
+    cmds:
+      - cmd: |
+          gitingest \
+            --exclude-pattern digest.txt,node_modules,temp,LICENSE,bun.lock,config/lima/lima-config-schema.json \
+            .

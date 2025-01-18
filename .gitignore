@@ -201,3 +201,6 @@ dist/
 .buruh.yaml
 temp/
 .bin/
+
+# gitingest
+digest.txt

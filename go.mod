@@ -3,6 +3,8 @@ module github.com/labz-shell/buruh
 go 1.23.4
 
 require (
+	codeberg.org/msantos/embedexe v0.0.0-20240114132617-3fba3b125f68
+	golang.org/x/sys v0.29.0
 	github.com/knadh/koanf/parsers/yaml v0.1.0
 	github.com/knadh/koanf/providers/file v1.1.2
 	github.com/knadh/koanf/v2 v2.1.2
@@ -10,6 +12,7 @@ require (
 )
 
 require (
+	codeberg.org/msantos/execve v0.0.0-20230206112018-e5c3a7f4d436 // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
 	github.com/knadh/koanf/maps v0.1.1 // indirect
